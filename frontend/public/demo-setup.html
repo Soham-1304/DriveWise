@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demo Setup - FuelOptimizer</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, sans-serif;
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+      .container {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      }
+      h1 {
+        margin-top: 0;
+        font-size: 2.5em;
+        text-align: center;
+      }
+      .status {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+      }
+      .success {
+        background: rgba(72, 187, 120, 0.3);
+        border-left: 4px solid #48bb78;
+      }
+      button {
+        background: white;
+        color: #667eea;
+        border: none;
+        padding: 15px 30px;
+        font-size: 18px;
+        border-radius: 10px;
+        cursor: pointer;
+        width: 100%;
+        margin: 10px 0;
+        font-weight: 600;
+        transition: transform 0.2s;
+      }
+      button:hover {
+        transform: scale(1.05);
+      }
+      button:active {
+        transform: scale(0.98);
+      }
+      .info {
+        background: rgba(255, 255, 255, 0.15);
+        padding: 15px;
+        border-radius: 8px;
+        margin: 10px 0;
+        font-size: 14px;
+      }
+      .code {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 10px;
+        border-radius: 5px;
+        font-family: "Courier New", monospace;
+        margin: 10px 0;
+      }
+      .emoji {
+        font-size: 3em;
+        text-align: center;
+        margin: 20px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="emoji">🚀</div>
+      <h1>FuelOptimizer Demo Setup</h1>
+
+      <div id="status" class="status">
+        <h3>📋 Demo Configuration</h3>
+        <div class="info">
+          <strong>Fleet ID:</strong> demo_fleet_001<br />
+          <strong>Role:</strong> Fleet Admin<br />
+          <strong>User:</strong> Rajesh Kumar<br />
+          <strong>Email:</strong> rajesh.kumar@fleet.com<br />
+          <strong>Vehicles:</strong> 6 (Indian commercial fleet)<br />
+          <strong>Drivers:</strong> 8 drivers<br />
+          <strong>Trips:</strong> 952 trips over 6 months<br />
+          <strong>Anomalies:</strong> 5 detected trips
+        </div>
+      </div>
+
+      <button onclick="setupDemo()">
+        ✨ Setup Demo Credentials & Go to App
+      </button>
+
+      <div class="info">
+        <strong>What this does:</strong>
+        <ul>
+          <li>Sets up demo fleet credentials in localStorage</li>
+          <li>Enables access to all analytics dashboards</li>
+          <li>Redirects you to the main app</li>
+        </ul>
+      </div>
+
+      <div class="info">
+        <strong>Pages you can access:</strong>
+        <ul>
+          <li>Fleet Performance Dashboard - Vehicle comparison</li>
+          <li>Driver Ranking - Top performers leaderboard</li>
+          <li>Fuel Analytics - Monthly consumption trends</li>
+          <li>Anomaly Detection - Statistical outliers</li>
+        </ul>
+      </div>
+    </div>
+
+    <script>
+      function setupDemo() {
+        // Set demo credentials
+        localStorage.setItem("fleetId", "demo_fleet_001");
+        localStorage.setItem("userRole", "fleet_admin");
+        localStorage.setItem("userId", "user_rajesh.kumar");
+        localStorage.setItem("userEmail", "rajesh.kumar@fleet.com");
+
+        // Set a fake token to bypass auth (for demo only)
+        localStorage.setItem("token", "DEMO_TOKEN_2024");
+        localStorage.setItem("demo_mode", "true");
+
+        // Set user object to simulate logged in state
+        const demoUser = {
+          uid: "user_rajesh.kumar",
+          email: "rajesh.kumar@fleet.com",
+          displayName: "Rajesh Kumar",
+          role: "fleet_admin",
+          fleetId: "demo_fleet_001",
+        };
+        localStorage.setItem("user", JSON.stringify(demoUser));
+
+        // Show success message
+        const statusDiv = document.getElementById("status");
+        statusDiv.className = "status success";
+        statusDiv.innerHTML = `
+        <h3>✅ Demo Setup Complete!</h3>
+        <p>Redirecting to Fleet Performance Dashboard...</p>
+      `;
+
+        // Redirect after 1 second
+        setTimeout(() => {
+          window.location.href = "/fleet/performance";
+        }, 1000);
+      }
+
+      // Check if already set up
+      window.onload = function () {
+        const fleetId = localStorage.getItem("fleetId");
+        if (fleetId === "demo_fleet_001") {
+          const statusDiv = document.getElementById("status");
+          statusDiv.className = "status success";
+          statusDiv.innerHTML = `
+          <h3>✅ Demo Already Configured!</h3>
+          <p>You're all set. Click the button to go to the app.</p>
+        `;
+        }
+      };
+    </script>
+  </body>
+</html>
