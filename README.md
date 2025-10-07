@@ -1,168 +1,333 @@
-<div align="center"># 🚗 FuelOptimizer - Intelligent Fleet Management System# Fuel Optimizer - 1-Day Prototype
+# DriveWise - Fleet Management & Route Optimization<div align="center"># 🚗 FuelOptimizer - Intelligent Fleet Management System# Fuel Optimizer - 1-Day Prototype
 
-# 🚗 FuelOptimizerA comprehensive fuel optimization and fleet management platform built with React, Node.js, MongoDB, and Firebase. The system provides real-time route optimization, GPS tracking, driver analytics, and fuel efficiency monitoring for fleet operations.A fuel/energy consumption optimizer that helps drivers and fleet managers track trips, optimize routes, and reduce fuel costs.
 
-### Intelligent Fleet Management & Route Optimization System---## 🚀 Quick Start
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-orange?style=for-the-badge)](https://fueloptimiser.web.app)## 📋 Table of Contents### Prerequisites
+[![Live Demo](https://img.shields.io/badge/demo-live-orange)](https://fueloptimiser.web.app) [![Backend](https://img.shields.io/badge/API-live-green)](https://fuel-optimizer-backend.vercel.app)# 🚗 FuelOptimizerA comprehensive fuel optimization and fleet management platform built with React, Node.js, MongoDB, and Firebase. The system provides real-time route optimization, GPS tracking, driver analytics, and fuel efficiency monitoring for fleet operations.A fuel/energy consumption optimizer that helps drivers and fleet managers track trips, optimize routes, and reduce fuel costs.
 
-[![Backend API](https://img.shields.io/badge/API-Live-green?style=for-the-badge)](https://fuel-optimizer-backend.vercel.app)
 
-[![React](https://img.shields.io/badge/React-18-blue?style=for-the-badge&logo=react)](https://reactjs.org/)- [Features Overview](#features-overview)- Node.js 18+ installed
 
-[![Node.js](https://img.shields.io/badge/Node.js-18+-green?style=for-the-badge&logo=node.js)](https://nodejs.org/)
+An intelligent fleet management system with AI-powered route optimization, real-time GPS tracking, and fuel efficiency monitoring.### Intelligent Fleet Management & Route Optimization System---## 🚀 Quick Start
 
-[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-success?style=for-the-badge&logo=mongodb)](https://www.mongodb.com/)- [Technology Stack](#technology-stack)- Firebase project created
 
-[![Firebase](https://img.shields.io/badge/Firebase-Auth-yellow?style=for-the-badge&logo=firebase)](https://firebase.google.com/)
+
+**Live App:** [fueloptimiser.web.app](https://fueloptimiser.web.app)[![Live Demo](https://img.shields.io/badge/Live-Demo-orange?style=for-the-badge)](https://fueloptimiser.web.app)## 📋 Table of Contents### Prerequisites
+
+
+
+---[![Backend API](https://img.shields.io/badge/API-Live-green?style=for-the-badge)](https://fuel-optimizer-backend.vercel.app)
+
+
+
+## Features[![React](https://img.shields.io/badge/React-18-blue?style=for-the-badge&logo=react)](https://reactjs.org/)- [Features Overview](#features-overview)- Node.js 18+ installed
+
+
+
+**For Fleet Admins:**[![Node.js](https://img.shields.io/badge/Node.js-18+-green?style=for-the-badge&logo=node.js)](https://nodejs.org/)
+
+- Real-time fleet dashboard with analytics
+
+- Vehicle & driver management[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-success?style=for-the-badge&logo=mongodb)](https://www.mongodb.com/)- [Technology Stack](#technology-stack)- Firebase project created
+
+- Live GPS tracking
+
+- Fuel efficiency trends & cost analysis[![Firebase](https://img.shields.io/badge/Firebase-Auth-yellow?style=for-the-badge&logo=firebase)](https://firebase.google.com/)
+
+- Anomaly detection alerts
 
 - [System Architecture](#system-architecture)- MongoDB Atlas M0 cluster created
 
-**A comprehensive fuel optimization and fleet management platform built with React, Node.js, MongoDB, and Firebase.**
+**For Drivers:**
 
-- [Core Features](#core-features)- Vercel account (for deployment)
+- Smart route planning (Fastest/Eco/Casual)**A comprehensive fuel optimization and fleet management platform built with React, Node.js, MongoDB, and Firebase.**
 
-[🚀 Live Demo](https://fueloptimiser.web.app) · [📖 Documentation](#-documentation) · [🛠️ Tech Stack](#-technology-stack) · [⚡ Quick Start](#-quick-start)
+- Real-time GPS tracking during trips
 
-- [Data Structures & Algorithms](#data-structures--algorithms)
+- Live fuel consumption monitoring- [Core Features](#core-features)- Vercel account (for deployment)
 
-</div>
+- Efficiency scoring & trip history
 
-- [Database Design (MongoDB)](#database-design-mongodb)### Setup Instructions
+- Interactive map with POI markers[🚀 Live Demo](https://fueloptimiser.web.app) · [📖 Documentation](#-documentation) · [🛠️ Tech Stack](#-technology-stack) · [⚡ Quick Start](#-quick-start)
 
----
 
-- [Authentication & Security (Firebase)](#authentication--security-firebase)
 
-## 🌐 Live Applications
+---- [Data Structures & Algorithms](#data-structures--algorithms)
 
-- [Advanced JavaScript Features](#advanced-javascript-features)#### 1. Firebase Setup
 
-| Platform | URL | Status |
+
+## Tech Stack</div>
+
+
+
+**Frontend:** React 18, Tailwind CSS, Leaflet.js, Recharts, Firebase Auth  - [Database Design (MongoDB)](#database-design-mongodb)### Setup Instructions
+
+**Backend:** Node.js, Express, MongoDB Atlas, Vercel  
+
+**Algorithms:** Dijkstra, A* Search, Dynamic Programming, K-Means Clustering---
+
+
+
+---- [Authentication & Security (Firebase)](#authentication--security-firebase)
+
+
+
+## Quick Start## 🌐 Live Applications
+
+
+
+### Prerequisites- [Advanced JavaScript Features](#advanced-javascript-features)#### 1. Firebase Setup
+
+- Node.js 18+
+
+- MongoDB Atlas account| Platform | URL | Status |
+
+- Firebase project
 
 |----------|-----|--------|- [API Endpoints](#api-endpoints)
 
+### Setup
+
 | **Frontend** | [fueloptimiser.web.app](https://fueloptimiser.web.app) | 🟢 Live |
 
-| **Backend API** | [fuel-optimizer-backend.vercel.app](https://fuel-optimizer-backend.vercel.app) | 🟢 Live |- [Setup & Installation](#setup--installation)1. Go to [Firebase Console](https://console.firebase.google.com/)
+```bash
 
----- [Usage Guide](#usage-guide)2. Create a new project
+# Clone repository| **Backend API** | [fuel-optimizer-backend.vercel.app](https://fuel-optimizer-backend.vercel.app) | 🟢 Live |- [Setup & Installation](#setup--installation)1. Go to [Firebase Console](https://console.firebase.google.com/)
 
-## ✨ Features3. Enable Authentication (Email/Password and Google)
+git clone https://github.com/Soham-1304/DriveWise.git
 
-### 🎯 For Fleet Administrators---4. Create a web app and copy the config
+cd DriveWise---- [Usage Guide](#usage-guide)2. Create a new project
 
-<table>5. Generate a service account key (Project Settings > Service Accounts > Generate New Private Key)
+
+
+# Backend setup## ✨ Features3. Enable Authentication (Email/Password and Google)
+
+cd backend
+
+npm install### 🎯 For Fleet Administrators---4. Create a web app and copy the config
+
+cp .env.example .env
+
+# Add your MongoDB URI and Firebase credentials to .env<table>5. Generate a service account key (Project Settings > Service Accounts > Generate New Private Key)
+
+npm run dev
 
 <tr>
 
-<td width="50%">## 🎯 Features Overview
+# Frontend setup (new terminal)
 
-#### 📊 **Dashboard & Analytics**#### 2. MongoDB Setup
+cd frontend<td width="50%">## 🎯 Features Overview
 
-- Real-time fleet overview
+npm install
+
+cp .env.example .env#### 📊 **Dashboard & Analytics**#### 2. MongoDB Setup
+
+# Add your Firebase config to .env
+
+npm run dev- Real-time fleet overview
+
+```
 
 - Fuel efficiency trends### **For Fleet Administrators**
 
-- Driver performance metrics
+**Access:**
+
+- Frontend: http://localhost:5173- Driver performance metrics
+
+- Backend: http://localhost:3000
 
 - Cost analysis & reports- 📊 Real-time fleet analytics dashboard1. Go to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 
+---
+
 #### 🚙 **Vehicle Management**- 🚙 Vehicle management with fuel consumption tracking2. Create a free M0 cluster
+
+## Algorithm Implementation
 
 - Vehicle registration & tracking
 
-- Fuel consumption monitoring- 👥 Driver management with performance metrics3. Create a database user
+1. **Dijkstra's Algorithm** - Fastest route with minimum time  
 
-- Maintenance schedules
+2. **A* Search** - Heuristic pathfinding with Haversine distance  - Fuel consumption monitoring- 👥 Driver management with performance metrics3. Create a database user
+
+3. **Dynamic Programming** - Fuel cost optimization with refueling strategy  
+
+4. **K-Means Clustering** - POI grouping for casual routes  - Maintenance schedules
+
+5. **Graph Builder** - Road network representation
 
 - Real-time GPS location- 🗺️ Live GPS tracking of active trips4. Whitelist your IP (or use 0.0.0.0/0 for development)
 
+---
+
 </td>- 📈 Fuel efficiency analytics and trends5. Get the connection string
+
+## API Endpoints
 
 <td width="50%">
 
-- 🎯 Driver performance comparison
+### Fleet Management
 
-#### 👥 **Driver Management**
+```- 🎯 Driver performance comparison
 
-- Driver assignment & profiles#### 3. Backend Setup
+POST   /api/fleet/vehicles
 
-- Performance comparison
+GET    /api/fleet/vehicles#### 👥 **Driver Management**
 
-- Efficiency scoring### **For Drivers**
+POST   /api/fleet/drivers
 
-- Live trip monitoring
+```- Driver assignment & profiles#### 3. Backend Setup
+
+
+
+### Route Planning- Performance comparison
+
+```
+
+POST   /api/route/optimize- Efficiency scoring### **For Drivers**
+
+POST   /api/route/custom
+
+GET    /api/route/poi- Live trip monitoring
+
+```
 
 - 🛣️ Intelligent route planning (Fastest/Greenest/Shortest/Custom)```bash
 
-#### 📈 **Advanced Analytics**
+### Trip Management
 
-- Fuel savings calculations- 📍 Real-time GPS tracking during tripscd backend
+```#### 📈 **Advanced Analytics**
 
-- Route optimization insights
+POST   /api/trip/start
+
+POST   /api/trip/:id/telemetry- Fuel savings calculations- 📍 Real-time GPS tracking during tripscd backend
+
+POST   /api/trip/:id/end
+
+GET    /api/trip/driver/:id- Route optimization insights
+
+```
 
 - Anomaly detection alerts- ⛽ Live fuel consumption monitoringnpm install
 
-- Custom reports
+### Analytics
 
-- 📊 Personal trip history and statistics
+```- Custom reports
 
-</td>
+GET    /api/analytics/fuel-efficiency
 
-</tr>- 🏆 Efficiency scoring and feedback# Create .env file
+GET    /api/analytics/driver-performance- 📊 Personal trip history and statistics
 
-</table>
+GET    /api/anomalies
 
-- 🎮 Interactive map with route visualizationcp .env.example .env
+```</td>
 
-### 🚀 For Drivers
 
-`````
 
-<table>
+---</tr>- 🏆 Efficiency scoring and feedback# Create .env file
 
-<tr>---
 
-<td width="50%">
 
-Edit `.env` with your credentials:
+## Database Schema</table>
 
-#### 🗺️ **Intelligent Route Planning**
 
-- **Fastest Route** - Minimum time using Dijkstra## 🛠️ Technology Stack
 
-- **Eco Route** - Maximum fuel efficiency with DP
+**MongoDB Collections:**- 🎮 Interactive map with route visualizationcp .env.example .env
 
-- **Casual Route** - Scenic with POI suggestions```
+- `vehicles` - Fleet vehicle data
 
-- **Custom Route** - Manual waypoint selection
+- `drivers` - Driver profiles### 🚀 For Drivers
 
-### **Frontend**MONGODB_URI=mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/fuel_db
+- `trips` - Trip records with routes
+
+- `telemetry` - GPS tracking data`````
+
+- `anomalies` - Detected driving anomalies
+
+- `fleets` - Fleet organizations<table>
+
+
+
+---<tr>---
+
+
+
+## Documentation<td width="50%">
+
+
+
+- [TECHNICAL_ARCHITECTURE.md](./TECHNICAL_ARCHITECTURE.md) - Deep technical diveEdit `.env` with your credentials:
+
+- [QUICK_REFERENCE.md](./QUICK_REFERENCE.md) - Quick DSA/MongoDB reference
+
+- [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md) - Deployment instructions#### 🗺️ **Intelligent Route Planning**
+
+
+
+---- **Fastest Route** - Minimum time using Dijkstra## 🛠️ Technology Stack
+
+
+
+## Deployment- **Eco Route** - Maximum fuel efficiency with DP
+
+
+
+**Frontend (Firebase):**- **Casual Route** - Scenic with POI suggestions```
+
+```bash
+
+cd frontend- **Custom Route** - Manual waypoint selection
+
+npm run build
+
+firebase deploy --only hosting### **Frontend**MONGODB_URI=mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/fuel_db
+
+```
 
 #### 📍 **Real-time Tracking**
 
-- Live GPS monitoring- **React 18** - Component-based UI frameworkFIREBASE_ADMIN_SA={"type":"service_account",...}
+**Backend (Vercel):**
 
-- Turn-by-turn navigation
+```bash- Live GPS monitoring- **React 18** - Component-based UI frameworkFIREBASE_ADMIN_SA={"type":"service_account",...}
+
+cd backend
+
+vercel --prod- Turn-by-turn navigation
+
+```
 
 - Speed & distance tracking- **React Router v6** - Client-side routingOSRM_URL=https://router.project-osrm.org
 
+---
+
 - Fuel consumption in real-time
+
+## License
 
 - **Axios** - HTTP client for API callsPORT=3000
 
+MIT License - see [LICENSE](LICENSE) file
+
 </td>
+
+---
 
 <td width="50%">- **Leaflet.js** - Interactive maps and geolocation```
 
+## Author
 
 
-#### 📊 **Personal Analytics**- **Recharts** - Data visualization (charts & graphs)
 
-- Trip history & statistics
+**Soham Karandikar**  
 
-- Efficiency scoring (0-100)- **Lucide React** - Modern icon libraryCreate MongoDB indexes:
+[GitHub](https://github.com/Soham-1304) · sohamkarandikar007@gmail.com#### 📊 **Personal Analytics**- **Recharts** - Data visualization (charts & graphs)
+
+
+
+---- Trip history & statistics
+
+
+
+⭐ Star this repo if you found it helpful!- Efficiency scoring (0-100)- **Lucide React** - Modern icon libraryCreate MongoDB indexes:
+
 
 - Fuel savings achievements
 
