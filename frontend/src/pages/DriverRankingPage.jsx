@@ -11,9 +11,8 @@ const DriverRankingPage = () => {
   const fetchDriverRanking = useCallback(async () => {
     try {
       setLoading(true);
-      const fleetId = localStorage.getItem('fleetId');
       
-      const data = await apiGet('/fleet/drivers/ranking', { fleetId });
+      const data = await apiGet('/fleet/advanced/drivers/ranking');
       setDrivers(data.data || []);
       setError(null);
     } catch (err) {
@@ -41,15 +40,15 @@ const DriverRankingPage = () => {
     return { label: 'Needs Improvement', color: 'bg-red-100 text-red-800' };
   };
 
-  if (loading) return <div className="flex items-center justify-center h-screen"><div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div></div>;
-  if (error) return <div className="p-6"><div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded flex items-center"><AlertCircle className="w-5 h-5 mr-2" /><span>Error: {error}</span></div></div>;
+  if (loading) return <div className="flex items-center justify-center h-screen"><div className="animate-spin rounded-full h-16 w-16 border-t-4 border-orange-500"></div></div>;
+  if (error) return <div className="p-6"><div className="bg-red-500/20 border border-red-500/30 text-red-300 px-4 py-3 rounded flex items-center"><AlertCircle className="w-5 h-5 mr-2" /><span>Error: {error}</span></div></div>;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-dark-950 via-dark-900 to-dark-950 p-6">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">Driver Leaderboard 🏆</h1>
-          <p className="text-gray-600">Top performing drivers based on fuel efficiency and safety</p>
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 bg-clip-text text-transparent mb-2">Driver Leaderboard 🏆</h1>
+          <p className="text-gray-400">Top performing drivers based on fuel efficiency and safety</p>
         </div>
 
         {/* Podium - Top 3 */}
@@ -63,27 +62,31 @@ const DriverRankingPage = () => {
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.2 }}
-                className={`${badge.bg} rounded-xl shadow-lg p-6 border-2 ${index === 0 ? 'border-yellow-300 md:col-span-1 md:order-2' : index === 1 ? 'border-gray-300 md:order-1' : 'border-orange-300 md:order-3'}`}
+                className={`bg-dark-800/50 backdrop-blur-xl rounded-xl shadow-lg p-6 border-2 ${
+                  index === 0 ? 'border-yellow-500/50 md:col-span-1 md:order-2 shadow-yellow-500/20' : 
+                  index === 1 ? 'border-gray-400/50 md:order-1 shadow-gray-400/20' : 
+                  'border-orange-500/50 md:order-3 shadow-orange-500/20'
+                }`}
               >
                 <div className="text-center">
                   <BadgeIcon className={`w-16 h-16 mx-auto mb-3 ${badge.color}`} />
-                  <h3 className="text-2xl font-bold text-gray-800">{badge.label}</h3>
-                  <p className="text-xl font-semibold text-gray-700 mt-2">{driver.name}</p>
-                  <p className="text-sm text-gray-500">{driver.email}</p>
+                  <h3 className="text-2xl font-bold text-white">{badge.label}</h3>
+                  <p className="text-xl font-semibold text-gray-200 mt-2">{driver.name}</p>
+                  <p className="text-sm text-gray-400">{driver.email}</p>
                   
                   <div className="mt-4 grid grid-cols-2 gap-4">
-                    <div className="bg-white rounded-lg p-3">
-                      <p className="text-xs text-gray-500">Efficiency</p>
-                      <p className="text-2xl font-bold text-green-600">{driver.avgEfficiency?.toFixed(1)}%</p>
+                    <div className="bg-dark-700/50 rounded-lg p-3 border border-dark-600/50">
+                      <p className="text-xs text-gray-400">Efficiency</p>
+                      <p className="text-2xl font-bold text-green-400">{driver.avgEfficiency?.toFixed(1)}%</p>
                     </div>
-                    <div className="bg-white rounded-lg p-3">
-                      <p className="text-xs text-gray-500">Safety</p>
-                      <p className="text-2xl font-bold text-blue-600">{driver.safetyScore?.toFixed(0)}</p>
+                    <div className="bg-dark-700/50 rounded-lg p-3 border border-dark-600/50">
+                      <p className="text-xs text-gray-400">Safety</p>
+                      <p className="text-2xl font-bold text-blue-400">{driver.safetyScore?.toFixed(0)}</p>
                     </div>
                   </div>
                   
                   <div className="mt-3">
-                    <p className="text-sm text-gray-600">{driver.totalTrips} trips completed</p>
+                    <p className="text-sm text-gray-300">{driver.totalTrips} trips completed</p>
                   </div>
                 </div>
               </motion.div>
@@ -92,25 +95,25 @@ const DriverRankingPage = () => {
         </div>
 
         {/* Full Ranking Table */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="bg-white rounded-xl shadow-lg overflow-hidden">
-          <div className="px-6 py-4 bg-gradient-to-r from-blue-500 to-indigo-600">
-            <h2 className="text-2xl font-bold text-white">Complete Rankings</h2>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="bg-dark-800/50 backdrop-blur-xl rounded-xl shadow-lg border border-dark-700/50 overflow-hidden">
+          <div className="px-6 py-4 bg-gradient-to-r from-orange-500/20 to-orange-600/20 border-b border-orange-500/30">
+            <h2 className="text-2xl font-bold text-orange-400">Complete Rankings</h2>
           </div>
           
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50">
+              <thead className="bg-dark-700/30">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Rank</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Driver</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Trips</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Efficiency</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Safety Score</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Avg Speed</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Status</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase">Rank</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase">Driver</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase">Trips</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase">Efficiency</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase">Safety Score</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase">Avg Speed</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200">
+              <tbody className="divide-y divide-dark-700/50">
                 {drivers.map((driver, index) => {
                   const badge = getRankBadge(index);
                   const effBadge = getEfficiencyBadge(driver.avgEfficiency);
@@ -122,7 +125,7 @@ const DriverRankingPage = () => {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: index * 0.05 }}
-                      className={`hover:bg-gray-50 ${index < 3 ? badge.bg : ''}`}
+                      className="hover:bg-dark-700/30 transition"
                     >
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-2">
@@ -132,31 +135,36 @@ const DriverRankingPage = () => {
                       </td>
                       <td className="px-6 py-4">
                         <div>
-                          <p className="font-medium text-gray-900">{driver.name}</p>
-                          <p className="text-sm text-gray-500">{driver.email}</p>
+                          <p className="font-medium text-white">{driver.name}</p>
+                          <p className="text-sm text-gray-400">{driver.email}</p>
                         </div>
                       </td>
-                      <td className="px-6 py-4 text-gray-700">{driver.totalTrips}</td>
+                      <td className="px-6 py-4 text-gray-300">{driver.totalTrips}</td>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-2">
-                          <TrendingUp className="w-4 h-4 text-green-500" />
-                          <span className="font-bold text-green-600">{driver.avgEfficiency?.toFixed(1)}%</span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="flex items-center gap-2">
-                          <Shield className="w-4 h-4 text-blue-500" />
-                          <span className="font-semibold">{driver.safetyScore?.toFixed(0)}/100</span>
+                          <TrendingUp className="w-4 h-4 text-green-400" />
+                          <span className="font-bold text-green-400">{driver.avgEfficiency?.toFixed(1)}%</span>
                         </div>
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-2">
-                          <Zap className="w-4 h-4 text-yellow-500" />
-                          <span>{driver.avgSpeed?.toFixed(0)} km/h</span>
+                          <Shield className="w-4 h-4 text-blue-400" />
+                          <span className="font-semibold text-white">{driver.safetyScore?.toFixed(0)}/100</span>
                         </div>
                       </td>
                       <td className="px-6 py-4">
-                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${effBadge.color}`}>
+                        <div className="flex items-center gap-2">
+                          <Zap className="w-4 h-4 text-yellow-400" />
+                          <span className="text-gray-300">{driver.avgSpeed?.toFixed(0)} km/h</span>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                          driver.avgEfficiency >= 90 ? 'bg-green-500/20 border border-green-500/30 text-green-400' :
+                          driver.avgEfficiency >= 75 ? 'bg-blue-500/20 border border-blue-500/30 text-blue-400' :
+                          driver.avgEfficiency >= 60 ? 'bg-yellow-500/20 border border-yellow-500/30 text-yellow-400' :
+                          'bg-red-500/20 border border-red-500/30 text-red-400'
+                        }`}>
                           {effBadge.label}
                         </span>
                       </td>

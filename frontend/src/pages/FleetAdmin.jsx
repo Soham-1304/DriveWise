@@ -21,8 +21,8 @@ export default function FleetAdmin() {
       const headers = { Authorization: `Bearer ${token}` }
 
       const [vehiclesRes, tripsRes] = await Promise.all([
-        axios.get('/api/vehicles', { headers }),
-        axios.get('/api/trips?limit=100', { headers })
+        axios.get('/vehicles', { headers }),
+        axios.get('/trips?limit=100', { headers })
       ])
 
       setVehicles(vehiclesRes.data.vehicles || [])

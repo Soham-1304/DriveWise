@@ -73,8 +73,10 @@ app.use('/api/geocode', geocodingRouter);
 // Note: More specific routes (fleetAnalyticsRouter) must come BEFORE generic routes (fleetRouter)
 // to prevent the /:id catch-all from intercepting analytics routes
 app.use('/api/auth', testAuth, verifyToken, authRouter);
-app.use('/api/fleet', testAuth, verifyToken, fleetAnalyticsRouter); // Advanced fleet analytics (MUST be first)
-app.use('/api/fleet', testAuth, verifyToken, fleetRouter); // Generic fleet routes (MUST be after analytics)
+// Mount general fleet routes (/, /analytics/overview, /:id)
+app.use('/api/fleet', testAuth, verifyToken, fleetRouter);
+// Mount advanced analytics routes under /advanced
+app.use('/api/fleet/advanced', testAuth, verifyToken, fleetAnalyticsRouter);
 app.use('/api/pois', testAuth, verifyToken, fleetAnalyticsRouter); // POIs geospatial queries  
 app.use('/api/vehicles', testAuth, verifyToken, vehiclesRouter);
 app.use('/api/trip', testAuth, verifyToken, tripsRouter);

@@ -23,7 +23,7 @@ export default function Vehicles() {
   async function fetchVehicles() {
     try {
       const token = await auth.currentUser.getIdToken()
-      const response = await axios.get('/api/vehicles', {
+      const response = await axios.get('/vehicles', {
         headers: { Authorization: `Bearer ${token}` }
       })
       setVehicles(response.data.vehicles || [])
@@ -42,7 +42,7 @@ export default function Vehicles() {
 
     try {
       const token = await auth.currentUser.getIdToken()
-      await axios.post('/api/vehicles', formData, {
+      await axios.post('/vehicles', formData, {
         headers: { Authorization: `Bearer ${token}` }
       })
 
@@ -68,7 +68,7 @@ export default function Vehicles() {
 
     try {
       const token = await auth.currentUser.getIdToken()
-      await axios.delete(`/api/vehicles/${id}`, {
+      await axios.delete(`/vehicles/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       fetchVehicles()

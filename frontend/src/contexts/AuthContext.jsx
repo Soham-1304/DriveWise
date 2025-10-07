@@ -36,7 +36,7 @@ export function AuthProvider({ children }) {
           const token = await firebaseUser.getIdToken()
           console.log('🎫 Got Firebase token, fetching profile from backend...');
           
-          const response = await axios.get('/api/auth/profile', {
+          const response = await axios.get('/auth/profile', {
             headers: { Authorization: `Bearer ${token}` }
           })
           
@@ -82,7 +82,7 @@ export function AuthProvider({ children }) {
     
     // Fetch user profile to get role
     const token = await userCredential.user.getIdToken()
-    const response = await axios.get('/api/auth/profile', {
+    const response = await axios.get('/auth/profile', {
       headers: { Authorization: `Bearer ${token}` }
     })
     
@@ -99,7 +99,7 @@ export function AuthProvider({ children }) {
     
     // Create user profile in backend
     const token = await userCredential.user.getIdToken()
-    const response = await axios.post('/api/auth/register', {
+    const response = await axios.post('/auth/register', {
       email,
       role, // 'fleet_admin' or 'driver'
       fleetData // { companyName, name, phone } for admin, { fleetCode, name, phone, licenseNumber } for driver

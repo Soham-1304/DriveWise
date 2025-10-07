@@ -103,7 +103,7 @@ export default function RoutePlanner() {
   async function fetchVehicles() {
     try {
       const token = await auth.currentUser.getIdToken()
-      const res = await axios.get('/api/fleet/', {
+      const res = await axios.get('/fleet/', {
         headers: { Authorization: `Bearer ${token}` }
       })
       const vehs = Array.isArray(res.data) ? res.data : []
@@ -225,7 +225,7 @@ export default function RoutePlanner() {
 
       // Reverse geocode to get address name
       try {
-        const res = await axios.get('/api/geocode/reverse', {
+        const res = await axios.get('/geocode/reverse', {
           params: { lat, lng }
         })
         
@@ -270,13 +270,13 @@ export default function RoutePlanner() {
 
       // Get both OSRM and Smart routes
       const [osrmRes, smartRes] = await Promise.all([
-        axios.post('/api/route/optimize', {
+        axios.post('/route/optimize', {
           origin: { lat: parseFloat(origin.lat), lng: parseFloat(origin.lng) },
           destination: { lat: parseFloat(dest.lat), lng: parseFloat(dest.lng) },
           vehicleId: selectedVehicle
         }, { headers: { Authorization: `Bearer ${token}` } }),
         
-        axios.post('/api/route/custom', {
+        axios.post('/route/custom', {
           origin: { lat: parseFloat(origin.lat), lng: parseFloat(origin.lng) },
           destination: { lat: parseFloat(dest.lat), lng: parseFloat(dest.lng) },
           vehicleId: selectedVehicle
@@ -489,7 +489,7 @@ export default function RoutePlanner() {
     
     try {
       const token = await auth.currentUser.getIdToken()
-      await axios.post('/api/trip/telemetry', {
+      await axios.post('/trip/telemetry', {
         tripId: tripData.tripId,
         points: buffer
       }, { headers: { Authorization: `Bearer ${token}` } })
@@ -530,7 +530,7 @@ export default function RoutePlanner() {
       const vehicle = vehicles.find(v => v._id === selectedVehicle)
 
       const token = await auth.currentUser.getIdToken()
-      const res = await axios.post('/api/trip/start', {
+      const res = await axios.post('/trip/start', {
         vehicleId: selectedVehicle,
         routeId: selected.id,
         plannedDistance: selected.metrics?.distance || 0,
@@ -652,7 +652,7 @@ export default function RoutePlanner() {
       }
 
       const token = await auth.currentUser.getIdToken()
-      const response = await axios.post('/api/trip/end', {
+      const response = await axios.post('/trip/end', {
         tripId: tripData.tripId,
         vehicleId: selectedVehicle,
         endFuelLevel: 80,
@@ -733,26 +733,26 @@ export default function RoutePlanner() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h2 className="text-3xl font-bold text-gray-900">🗺️ Route Planner</h2>
-        <p className="text-gray-600">Find the best route with AI-powered fuel optimization</p>
+        <h2 className="text-3xl font-bold bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 bg-clip-text text-transparent">🗺️ Route Planner</h2>
+        <p className="text-gray-400">Find the best route with AI-powered fuel optimization</p>
       </div>
 
       {error && (
-        <div className="p-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded-lg">
+        <div className="p-4 bg-red-500/20 border-l-4 border-red-500 text-red-300 rounded-lg backdrop-blur-xl">
           {error}
         </div>
       )}
 
       {/* Input Form - Modern Minimalist Design */}
-      <form onSubmit={findRoutes} className="p-6 bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg border border-gray-200">
+      <form onSubmit={findRoutes} className="p-6 bg-dark-800/50 backdrop-blur-xl rounded-2xl shadow-lg border border-dark-700/50">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
           {/* Vehicle */}
           <div className="relative">
-            <label className="block text-xs font-medium text-gray-500 mb-1.5 ml-1">🚗 Vehicle</label>
+            <label className="block text-xs font-medium text-gray-400 mb-1.5 ml-1">🚗 Vehicle</label>
             <select
               value={selectedVehicle}
               onChange={(e) => setSelectedVehicle(e.target.value)}
-              className="w-full px-4 py-3.5 bg-white/80 backdrop-blur-sm border-0 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm hover:shadow-md text-gray-900 font-medium"
+              className="w-full px-4 py-3.5 bg-dark-700/50 backdrop-blur-sm border border-dark-600/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all shadow-sm hover:shadow-md text-white font-medium"
               required
             >
               {vehicles.map(v => (
@@ -763,7 +763,7 @@ export default function RoutePlanner() {
 
           {/* Origin Search */}
           <div className="relative">
-            <label className="block text-xs font-medium text-gray-500 mb-1.5 ml-1">📍 From</label>
+            <label className="block text-xs font-medium text-gray-400 mb-1.5 ml-1">📍 From</label>
             <input
               type="text"
               value={originSearch}
@@ -771,13 +771,13 @@ export default function RoutePlanner() {
               onFocus={() => originSearch.length >= 2 && setShowOriginDrop(true)}
               onBlur={() => setTimeout(() => setShowOriginDrop(false), 100)}
               placeholder="Thane, Thane Taluka, Th"
-              className="w-full px-4 py-3.5 bg-white/80 backdrop-blur-sm border-0 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm hover:shadow-md text-gray-900 font-medium placeholder:text-gray-400"
+              className="w-full px-4 py-3.5 bg-dark-700/50 backdrop-blur-sm border border-dark-600/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all shadow-sm hover:shadow-md text-white font-medium placeholder:text-gray-500"
               required
             />
             <button
               type="button"
               onClick={useCurrentLocation}
-              className="absolute right-2 top-9 px-3 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all shadow-sm text-xs font-medium flex items-center gap-1"
+              className="absolute right-2 top-9 px-3 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg shadow-orange-500/30 text-xs font-medium flex items-center gap-1"
               title="Use Current Location"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -787,15 +787,15 @@ export default function RoutePlanner() {
               GPS
             </button>
             {showOriginDrop && originSuggestions.length > 0 && (
-              <div className="absolute z-[1000] w-full mt-2 bg-white/95 backdrop-blur-lg border-0 rounded-2xl shadow-2xl max-h-60 overflow-y-auto">
+              <div className="absolute z-[1000] w-full mt-2 bg-dark-800/95 backdrop-blur-lg border border-dark-700/50 rounded-2xl shadow-2xl max-h-60 overflow-y-auto">
                 {originSuggestions.map((sug, i) => (
                   <button
                     key={i}
                     type="button"
                     onClick={() => pickLocation(sug, true)}
-                    className="w-full px-4 py-3 text-left hover:bg-blue-50/80 transition-all first:rounded-t-2xl last:rounded-b-2xl"
+                    className="w-full px-4 py-3 text-left hover:bg-orange-500/20 transition-all first:rounded-t-2xl last:rounded-b-2xl"
                   >
-                    <div className="font-semibold text-gray-900 flex items-center gap-2">
+                    <div className="font-semibold text-white flex items-center gap-2">
                       <span className="text-green-500">📍</span> {sug.name}
                     </div>
                     <div className="text-xs text-gray-400 ml-6">{sug.lat.toFixed(4)}, {sug.lng.toFixed(4)}</div>
@@ -807,7 +807,7 @@ export default function RoutePlanner() {
 
           {/* Destination Search */}
           <div className="relative">
-            <label className="block text-xs font-medium text-gray-500 mb-1.5 ml-1">🎯 To</label>
+            <label className="block text-xs font-medium text-gray-400 mb-1.5 ml-1">🎯 To</label>
             <input
               type="text"
               value={destSearch}
@@ -815,19 +815,19 @@ export default function RoutePlanner() {
               onFocus={() => destSearch.length >= 2 && setShowDestDrop(true)}
               onBlur={() => setTimeout(() => setShowDestDrop(false), 100)}
               placeholder="Andheri, Masjid Galli, An"
-              className="w-full px-4 py-3.5 bg-white/80 backdrop-blur-sm border-0 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm hover:shadow-md text-gray-900 font-medium placeholder:text-gray-400"
+              className="w-full px-4 py-3.5 bg-dark-700/50 backdrop-blur-sm border border-dark-600/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all shadow-sm hover:shadow-md text-white font-medium placeholder:text-gray-500"
               required
             />
             {showDestDrop && destSuggestions.length > 0 && (
-              <div className="absolute z-[1000] w-full mt-2 bg-white/95 backdrop-blur-lg border-0 rounded-2xl shadow-2xl max-h-60 overflow-y-auto">
+              <div className="absolute z-[1000] w-full mt-2 bg-dark-800/95 backdrop-blur-lg border border-dark-700/50 rounded-2xl shadow-2xl max-h-60 overflow-y-auto">
                 {destSuggestions.map((sug, i) => (
                   <button
                     key={i}
                     type="button"
                     onClick={() => pickLocation(sug, false)}
-                    className="w-full px-4 py-3 text-left hover:bg-blue-50/80 transition-all first:rounded-t-2xl last:rounded-b-2xl"
+                    className="w-full px-4 py-3 text-left hover:bg-orange-500/20 transition-all first:rounded-t-2xl last:rounded-b-2xl"
                   >
-                    <div className="font-semibold text-gray-900 flex items-center gap-2">
+                    <div className="font-semibold text-white flex items-center gap-2">
                       <span className="text-red-500">🎯</span> {sug.name}
                     </div>
                     <div className="text-xs text-gray-400 ml-6">{sug.lat.toFixed(4)}, {sug.lng.toFixed(4)}</div>
@@ -842,7 +842,7 @@ export default function RoutePlanner() {
             <button
               type="button"
               onClick={useSample}
-              className="w-full px-4 py-3.5 bg-gray-100/80 text-gray-700 rounded-xl hover:bg-gray-200/80 transition-all font-medium shadow-sm hover:shadow-md border-0"
+              className="w-full px-4 py-3.5 bg-dark-700/50 text-gray-300 rounded-xl hover:bg-dark-600/50 transition-all font-medium shadow-sm hover:shadow-md border border-dark-600/50"
             >
               📍 Sample
             </button>
@@ -853,7 +853,7 @@ export default function RoutePlanner() {
             <button
               type="submit"
               disabled={loading || !origin.lat || !dest.lat}
-              className="w-full px-6 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all disabled:opacity-50 font-semibold shadow-md hover:shadow-lg border-0"
+              className="w-full px-6 py-3.5 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-xl hover:from-orange-600 hover:to-orange-700 transition-all disabled:opacity-50 font-semibold shadow-lg shadow-orange-500/30 border-0"
             >
               {loading ? '🔍 Finding...' : '🔍 Find Routes'}
             </button>
@@ -864,7 +864,7 @@ export default function RoutePlanner() {
       {/* Live Map Section */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+          <h3 className="text-xl font-bold text-white flex items-center gap-2">
             🗺️ Live Map
             {tripActive && (
               <span className="ml-2 px-3 py-1 bg-green-500 text-white text-sm rounded-full animate-pulse">
@@ -873,7 +873,7 @@ export default function RoutePlanner() {
             )}
           </h3>
           {tripActive && (
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-400">
               📍 Current position shown in blue
             </p>
           )}
@@ -881,7 +881,7 @@ export default function RoutePlanner() {
         
         {/* Map - ALWAYS VISIBLE */}
         <div 
-          className="rounded-2xl overflow-hidden shadow-2xl border-4 border-blue-500 bg-gray-100" 
+          className="rounded-2xl overflow-hidden shadow-2xl border-4 border-orange-500 bg-dark-800" 
           style={{ height: '600px', minHeight: '600px' }}
         >
           <MapContainer
@@ -992,20 +992,20 @@ export default function RoutePlanner() {
 
       {/* POI Controls */}
       {allRoutes.length > 0 && (
-        <div className="mb-6 p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl border border-gray-200">
+        <div className="mb-6 p-4 bg-dark-800/50 backdrop-blur-xl rounded-xl border border-dark-700/50">
           <div className="flex items-center gap-4">
             <button
               onClick={() => setShowPOIs(!showPOIs)}
               className={`px-6 py-3 rounded-xl font-semibold transition-all shadow-md hover:shadow-lg transform hover:scale-105 ${
                 showPOIs
-                  ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white'
-                  : 'bg-white text-gray-700 border-2 border-gray-300 hover:border-blue-400'
+                  ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-orange-500/30'
+                  : 'bg-dark-700/50 text-gray-300 border-2 border-dark-600/50 hover:border-orange-500/50'
               }`}
             >
               {showPOIs ? '👁️ Hide POIs' : '👁️‍🗨️ Show POIs'}
             </button>
             {loadingPOIs && (
-              <span className="text-sm text-gray-500 flex items-center gap-2">
+              <span className="text-sm text-gray-400 flex items-center gap-2">
                 <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
@@ -1014,7 +1014,7 @@ export default function RoutePlanner() {
               </span>
             )}
             {pois.length > 0 && (
-              <span className="text-sm text-gray-600">
+              <span className="text-sm text-gray-400">
                 {pois.length} points of interest nearby
               </span>
             )}
@@ -1025,7 +1025,7 @@ export default function RoutePlanner() {
       {/* Route Cards */}
       {hasRoutes && (
         <>
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">Choose Your Route</h3>
+          <h3 className="text-2xl font-bold text-white mb-4">Choose Your Route</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
             {allRoutes.map(route => {
@@ -1037,37 +1037,37 @@ export default function RoutePlanner() {
                   onClick={() => setSelected(route)}
                   className={`text-left p-6 rounded-2xl transition-all transform hover:scale-105 ${
                     isActive
-                      ? 'bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 border-4 border-blue-500 shadow-2xl'
-                      : 'bg-white border-2 border-gray-200 hover:border-blue-300 shadow-lg'
+                      ? 'bg-gradient-to-br from-orange-500/20 via-orange-600/20 to-orange-700/20 border-4 border-orange-500 shadow-2xl shadow-orange-500/30 backdrop-blur-xl'
+                      : 'bg-dark-800/50 backdrop-blur-xl border-2 border-dark-700/50 hover:border-orange-500/50 shadow-lg'
                   }`}
                 >
                   <div className="flex justify-between items-start mb-3">
-                    <h4 className="font-bold text-lg text-gray-900">{route.name}</h4>
+                    <h4 className="font-bold text-lg text-white">{route.name}</h4>
                     {isActive && (
-                      <span className="bg-blue-600 text-white text-xs px-3 py-1 rounded-full font-bold">
+                      <span className="bg-orange-600 text-white text-xs px-3 py-1 rounded-full font-bold">
                         ✓ Selected
                       </span>
                     )}
                   </div>
                   
-                  <p className="text-xs text-gray-600 mb-4">{route.desc}</p>
+                  <p className="text-xs text-gray-400 mb-4">{route.desc}</p>
                   
                   <div className="space-y-3">
                     <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">Distance</span>
-                      <span className="font-bold text-gray-900">{route.metrics.distance} km</span>
+                      <span className="text-sm text-gray-400">Distance</span>
+                      <span className="font-bold text-white">{route.metrics.distance} km</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">Time</span>
-                      <span className="font-bold text-gray-900">{route.metrics.time} min</span>
+                      <span className="text-sm text-gray-400">Time</span>
+                      <span className="font-bold text-white">{route.metrics.time} min</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">Fuel</span>
-                      <span className="font-bold text-gray-900">{route.metrics.fuel} L</span>
+                      <span className="text-sm text-gray-400">Fuel</span>
+                      <span className="font-bold text-white">{route.metrics.fuel} L</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">Cost</span>
-                      <span className="font-bold text-green-600">₹{route.metrics.cost}</span>
+                      <span className="text-sm text-gray-400">Cost</span>
+                      <span className="font-bold text-green-400">₹{route.metrics.cost}</span>
                     </div>
                   </div>
                   
@@ -1083,7 +1083,7 @@ export default function RoutePlanner() {
           {selected && !tripActive && (
             <button
               onClick={startTrip}
-              className="w-full py-5 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-2xl font-bold text-xl hover:from-green-600 hover:to-emerald-700 transition shadow-2xl"
+              className="w-full py-5 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-2xl font-bold text-xl hover:from-green-600 hover:to-emerald-700 transition shadow-2xl shadow-green-500/30"
             >
               🚀 Start Trip with {selected.name}
             </button>
@@ -1091,59 +1091,59 @@ export default function RoutePlanner() {
 
           {tripActive && (
             <div className="space-y-4">
-              <div className="p-6 bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-500 rounded-2xl shadow-xl">
+              <div className="p-6 bg-gradient-to-br from-green-500/20 to-emerald-600/20 border-2 border-green-500 rounded-2xl shadow-xl backdrop-blur-xl">
                 <div className="flex items-center mb-4">
-                  <svg className="h-8 w-8 text-green-600 animate-pulse mr-3" fill="currentColor" viewBox="0 0 20 20">
+                  <svg className="h-8 w-8 text-green-400 animate-pulse mr-3" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
                   <div className="flex-1">
-                    <h3 className="font-bold text-xl text-green-900">🚗 Trip in Progress</h3>
-                    <p className="text-sm text-green-700">Route: {selected?.name} • GPS Tracking Active</p>
+                    <h3 className="font-bold text-xl text-white">🚗 Trip in Progress</h3>
+                    <p className="text-sm text-green-300">Route: {selected?.name} • GPS Tracking Active</p>
                   </div>
                 </div>
                 
                 {/* Live Metrics Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-                  <div className="bg-white rounded-xl p-4 shadow-md border border-green-200">
-                    <div className="text-xs text-gray-500 mb-1">Distance</div>
-                    <div className="text-2xl font-bold text-gray-900">{distanceTraveled.toFixed(2)}</div>
-                    <div className="text-xs text-gray-600">km</div>
+                  <div className="bg-dark-700/50 rounded-xl p-4 shadow-md border border-dark-600/50 backdrop-blur-sm">
+                    <div className="text-xs text-gray-400 mb-1">Distance</div>
+                    <div className="text-2xl font-bold text-white">{distanceTraveled.toFixed(2)}</div>
+                    <div className="text-xs text-gray-400">km</div>
                   </div>
                   
-                  <div className="bg-white rounded-xl p-4 shadow-md border border-blue-200">
-                    <div className="text-xs text-gray-500 mb-1">Speed</div>
-                    <div className="text-2xl font-bold text-blue-600">{speed || 0}</div>
-                    <div className="text-xs text-gray-600">km/h</div>
+                  <div className="bg-dark-700/50 rounded-xl p-4 shadow-md border border-blue-500/30 backdrop-blur-sm">
+                    <div className="text-xs text-gray-400 mb-1">Speed</div>
+                    <div className="text-2xl font-bold text-blue-400">{speed || 0}</div>
+                    <div className="text-xs text-gray-400">km/h</div>
                   </div>
                   
-                  <div className="bg-white rounded-xl p-4 shadow-md border border-orange-200">
-                    <div className="text-xs text-gray-500 mb-1">Fuel Used</div>
-                    <div className="text-2xl font-bold text-orange-600">{fuelConsumed.toFixed(2)}</div>
-                    <div className="text-xs text-gray-600">
+                  <div className="bg-dark-700/50 rounded-xl p-4 shadow-md border border-orange-500/30 backdrop-blur-sm">
+                    <div className="text-xs text-gray-400 mb-1">Fuel Used</div>
+                    <div className="text-2xl font-bold text-orange-400">{fuelConsumed.toFixed(2)}</div>
+                    <div className="text-xs text-gray-400">
                       {vehicles.find(v => v._id === selectedVehicle)?.fuelType === 'EV' ? 'kWh' : 'L'}
                     </div>
                   </div>
                   
-                  <div className="bg-white rounded-xl p-4 shadow-md border border-purple-200">
-                    <div className="text-xs text-gray-500 mb-1">Efficiency</div>
-                    <div className="text-2xl font-bold text-purple-600">{Math.round(efficiencyScore)}</div>
-                    <div className="text-xs text-gray-600">/100</div>
+                  <div className="bg-dark-700/50 rounded-xl p-4 shadow-md border border-purple-500/30 backdrop-blur-sm">
+                    <div className="text-xs text-gray-400 mb-1">Efficiency</div>
+                    <div className="text-2xl font-bold text-purple-400">{Math.round(efficiencyScore)}</div>
+                    <div className="text-xs text-gray-400">/100</div>
                   </div>
                 </div>
                 
                 {/* Efficiency Bar */}
                 <div className="mt-4">
-                  <div className="flex justify-between text-xs text-gray-600 mb-1">
+                  <div className="flex justify-between text-xs text-gray-400 mb-1">
                     <span>Efficiency Score</span>
                     <span className={`font-semibold ${
-                      efficiencyScore >= 80 ? 'text-green-600' : 
-                      efficiencyScore >= 60 ? 'text-yellow-600' : 'text-red-600'
+                      efficiencyScore >= 80 ? 'text-green-400' : 
+                      efficiencyScore >= 60 ? 'text-yellow-400' : 'text-red-400'
                     }`}>
                       {efficiencyScore >= 80 ? '🌟 Excellent' : 
                        efficiencyScore >= 60 ? '👍 Good' : '⚠️ Needs Improvement'}
                     </span>
                   </div>
-                  <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="h-3 bg-dark-700/50 rounded-full overflow-hidden">
                     <div 
                       className={`h-full transition-all duration-500 ${
                         efficiencyScore >= 80 ? 'bg-gradient-to-r from-green-500 to-emerald-600' : 
@@ -1153,7 +1153,7 @@ export default function RoutePlanner() {
                       style={{ width: `${Math.min(100, Math.max(0, efficiencyScore))}%` }}
                     />
                   </div>
-                  <p className="text-xs text-gray-500 mt-2">
+                  <p className="text-xs text-gray-400 mt-2">
                     💡 Tip: Maintain 40-60 km/h for optimal efficiency
                   </p>
                 </div>
@@ -1161,7 +1161,7 @@ export default function RoutePlanner() {
               
               <button
                 onClick={endTrip}
-                className="w-full py-5 bg-gradient-to-r from-red-500 to-rose-600 text-white rounded-2xl font-bold text-xl hover:from-red-600 hover:to-rose-700 transition shadow-2xl transform hover:scale-105"
+                className="w-full py-5 bg-gradient-to-r from-red-500 to-rose-600 text-white rounded-2xl font-bold text-xl hover:from-red-600 hover:to-rose-700 transition shadow-2xl shadow-red-500/30 transform hover:scale-105"
               >
                 ⏹️ End Trip & View Summary
               </button>

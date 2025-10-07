@@ -65,9 +65,9 @@ export default function DriverTripHistoryPage() {
   }
 
   const getEfficiencyBadge = (score) => {
-    if (score >= 80) return { label: 'Excellent', color: 'bg-green-100 text-green-700' }
-    if (score >= 60) return { label: 'Good', color: 'bg-yellow-100 text-yellow-700' }
-    return { label: 'Poor', color: 'bg-red-100 text-red-700' }
+    if (score >= 80) return { label: 'Excellent', color: 'bg-green-500/20 border border-green-500/30 text-green-400' }
+    if (score >= 60) return { label: 'Good', color: 'bg-yellow-500/20 border border-yellow-500/30 text-yellow-400' }
+    return { label: 'Poor', color: 'bg-red-500/20 border border-red-500/30 text-red-400' }
   }
 
   const filteredTrips = trips.filter(trip => {
@@ -81,19 +81,19 @@ export default function DriverTripHistoryPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
       </div>
     )
   }
 
   if (error) {
     return (
-      <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-auto">
-        <AlertCircle className="w-8 h-8 text-red-600 mx-auto mb-3" />
-        <p className="text-center text-red-700 mb-4">{error}</p>
+      <div className="bg-red-500/20 border border-red-500/30 backdrop-blur-xl rounded-lg p-6 max-w-md mx-auto">
+        <AlertCircle className="w-8 h-8 text-red-400 mx-auto mb-3" />
+        <p className="text-center text-red-300 mb-4">{error}</p>
         <button
           onClick={() => navigate('/admin/drivers')}
-          className="mx-auto block px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+          className="mx-auto block px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 shadow-lg shadow-red-500/30"
         >
           Back to Drivers
         </button>
@@ -107,56 +107,56 @@ export default function DriverTripHistoryPage() {
       <div className="flex items-center gap-4">
         <button
           onClick={() => navigate('/admin/drivers')}
-          className="p-2 hover:bg-gray-100 rounded-lg transition"
+          className="p-2 hover:bg-dark-700/30 rounded-lg transition"
         >
-          <ArrowLeft className="w-6 h-6 text-gray-600" />
+          <ArrowLeft className="w-6 h-6 text-gray-400" />
         </button>
         <div className="flex-1">
-          <h1 className="text-3xl font-bold text-gray-900">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 bg-clip-text text-transparent">
             {driver?.name || driver?.email || 'Driver'}'s Trip History
           </h1>
-          <p className="text-gray-600 mt-1">{driver?.email}</p>
+          <p className="text-gray-400 mt-1">{driver?.email}</p>
         </div>
       </div>
 
       {/* Statistics Cards */}
       <div className="grid md:grid-cols-4 gap-6">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div className="bg-dark-800/50 backdrop-blur-xl rounded-xl shadow-lg border border-dark-700/50 p-6">
           <div className="flex items-center justify-between mb-2">
-            <Car className="w-8 h-8 text-blue-600" />
+            <Car className="w-8 h-8 text-orange-400" />
           </div>
-          <div className="text-3xl font-bold text-gray-900">{stats.totalTrips}</div>
-          <div className="text-sm text-gray-600">Total Trips</div>
+          <div className="text-3xl font-bold text-white">{stats.totalTrips}</div>
+          <div className="text-sm text-gray-400">Total Trips</div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div className="bg-dark-800/50 backdrop-blur-xl rounded-xl shadow-lg border border-dark-700/50 p-6">
           <div className="flex items-center justify-between mb-2">
-            <MapPin className="w-8 h-8 text-green-600" />
+            <MapPin className="w-8 h-8 text-green-400" />
           </div>
-          <div className="text-3xl font-bold text-gray-900">{stats.activeTrips}</div>
-          <div className="text-sm text-gray-600">Active Trips</div>
+          <div className="text-3xl font-bold text-white">{stats.activeTrips}</div>
+          <div className="text-sm text-gray-400">Active Trips</div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div className="bg-dark-800/50 backdrop-blur-xl rounded-xl shadow-lg border border-dark-700/50 p-6">
           <div className="flex items-center justify-between mb-2">
-            <Navigation className="w-8 h-8 text-purple-600" />
+            <Navigation className="w-8 h-8 text-purple-400" />
           </div>
-          <div className="text-3xl font-bold text-gray-900">
+          <div className="text-3xl font-bold text-white">
             {trips.reduce((sum, t) => sum + (t.distanceKm || 0), 0).toFixed(1)}
           </div>
-          <div className="text-sm text-gray-600">Total Distance (km)</div>
+          <div className="text-sm text-gray-400">Total Distance (km)</div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div className="bg-dark-800/50 backdrop-blur-xl rounded-xl shadow-lg border border-dark-700/50 p-6">
           <div className="flex items-center justify-between mb-2">
-            <TrendingUp className="w-8 h-8 text-orange-600" />
+            <TrendingUp className="w-8 h-8 text-blue-400" />
           </div>
-          <div className="text-3xl font-bold text-gray-900">
+          <div className="text-3xl font-bold text-white">
             {trips.length > 0 
               ? (trips.reduce((sum, t) => sum + (t.efficiencyScore || 0), 0) / trips.length).toFixed(0)
               : 0}
           </div>
-          <div className="text-sm text-gray-600">Avg Efficiency</div>
+          <div className="text-sm text-gray-400">Avg Efficiency</div>
         </div>
       </div>
 
@@ -168,8 +168,8 @@ export default function DriverTripHistoryPage() {
             onClick={() => setSelectedFilter(filter)}
             className={`px-4 py-2 rounded-lg font-semibold transition ${
               selectedFilter === filter
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg shadow-orange-500/30'
+                : 'bg-dark-700/50 text-gray-300 hover:bg-dark-700 border border-dark-600/50'
             }`}
           >
             {filter.charAt(0).toUpperCase() + filter.slice(1)}
@@ -190,9 +190,9 @@ export default function DriverTripHistoryPage() {
       {/* Trips List */}
       <div className="space-y-4">
         {filteredTrips.length === 0 ? (
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
-            <Car className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-            <p className="text-gray-600 mb-2">No trips found</p>
+          <div className="bg-dark-800/50 backdrop-blur-xl rounded-xl shadow-lg border border-dark-700/50 p-12 text-center">
+            <Car className="w-12 h-12 text-gray-500 mx-auto mb-3" />
+            <p className="text-gray-300 mb-2">No trips found</p>
             <p className="text-sm text-gray-500">
               {selectedFilter !== 'all' 
                 ? 'Try selecting a different filter'
@@ -204,17 +204,17 @@ export default function DriverTripHistoryPage() {
           filteredTrips.map((trip) => {
             const badge = getEfficiencyBadge(trip.efficiencyScore)
             return (
-              <div key={trip._id} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition">
+              <div key={trip._id} className="bg-dark-800/50 backdrop-blur-xl rounded-xl shadow-lg border border-dark-700/50 hover:border-orange-500/30 p-6 transition">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                   {/* Trip Info */}
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <Car className="w-6 h-6 text-blue-600" />
+                      <div className="w-12 h-12 bg-orange-500/20 border border-orange-500/30 rounded-lg flex items-center justify-center">
+                        <Car className="w-6 h-6 text-orange-400" />
                       </div>
                       <div>
-                        <h3 className="font-bold text-gray-900">{trip.name || 'Untitled Trip'}</h3>
-                        <p className="text-sm text-gray-600">
+                        <h3 className="font-bold text-white">{trip.name || 'Untitled Trip'}</h3>
+                        <p className="text-sm text-gray-400">
                           {new Date(trip.startTime).toLocaleDateString()} at {new Date(trip.startTime).toLocaleTimeString()}
                         </p>
                       </div>
@@ -223,19 +223,19 @@ export default function DriverTripHistoryPage() {
                     {/* Trip Metrics */}
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                       <div>
-                        <div className="flex items-center gap-1 text-xs text-gray-600 mb-1">
+                        <div className="flex items-center gap-1 text-xs text-gray-500 mb-1">
                           <Navigation className="w-3 h-3" />
                           Distance
                         </div>
-                        <p className="font-bold text-gray-900">{trip.distanceKm?.toFixed(1) || '0.0'} km</p>
+                        <p className="font-bold text-white">{trip.distanceKm?.toFixed(1) || '0.0'} km</p>
                       </div>
 
                       <div>
-                        <div className="flex items-center gap-1 text-xs text-gray-600 mb-1">
+                        <div className="flex items-center gap-1 text-xs text-gray-500 mb-1">
                           <Clock className="w-3 h-3" />
                           Duration
                         </div>
-                        <p className="font-bold text-gray-900">
+                        <p className="font-bold text-white">
                           {trip.durationSec 
                             ? `${Math.floor(trip.durationSec / 60)}m ${trip.durationSec % 60}s`
                             : '0m'
@@ -244,15 +244,15 @@ export default function DriverTripHistoryPage() {
                       </div>
 
                       <div>
-                        <div className="flex items-center gap-1 text-xs text-gray-600 mb-1">
+                        <div className="flex items-center gap-1 text-xs text-gray-500 mb-1">
                           <Fuel className="w-3 h-3" />
                           Fuel Saved
                         </div>
-                        <p className="font-bold text-green-600">{trip.fuelSaved?.toFixed(2) || '0.00'} L</p>
+                        <p className="font-bold text-green-400">{trip.fuelSaved?.toFixed(2) || '0.00'} L</p>
                       </div>
 
                       <div>
-                        <div className="flex items-center gap-1 text-xs text-gray-600 mb-1">
+                        <div className="flex items-center gap-1 text-xs text-gray-500 mb-1">
                           <Award className="w-3 h-3" />
                           Efficiency
                         </div>

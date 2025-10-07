@@ -50,7 +50,7 @@ export default function CustomRoutePlanner() {
   async function fetchVehicles() {
     try {
       const token = await auth.currentUser.getIdToken()
-      const response = await axios.get('/api/vehicles', {
+      const response = await axios.get('/vehicles', {
         headers: { Authorization: `Bearer ${token}` }
       })
       const vehiclesData = response.data.vehicles || []

@@ -21,7 +21,7 @@ export default function Dashboard() {
       const headers = { Authorization: `Bearer ${token}` }
 
       // Fetch vehicles
-      const vehiclesRes = await axios.get('/api/vehicles', { headers })
+      const vehiclesRes = await axios.get('/vehicles', { headers })
       setVehicles(vehiclesRes.data.vehicles || [])
 
       // Fetch analytics
@@ -29,7 +29,7 @@ export default function Dashboard() {
       if (selectedVehicle) {
         analyticsParams.append('vehicleId', selectedVehicle)
       }
-      const analyticsRes = await axios.get(`/api/analytics/summary?${analyticsParams}`, { headers })
+      const analyticsRes = await axios.get(`/analytics/summary?${analyticsParams}`, { headers })
       setAnalytics(analyticsRes.data)
 
       // Fetch trips
@@ -37,7 +37,7 @@ export default function Dashboard() {
       if (selectedVehicle) {
         tripsParams.append('vehicleId', selectedVehicle)
       }
-      const tripsRes = await axios.get(`/api/trips?${tripsParams}`, { headers })
+      const tripsRes = await axios.get(`/trips?${tripsParams}`, { headers })
       setTrips(tripsRes.data.trips || [])
 
       setLoading(false)
@@ -67,7 +67,7 @@ export default function Dashboard() {
   async function viewTripDetails(tripId) {
     try {
       const token = await auth.currentUser.getIdToken()
-      const response = await axios.get(`/api/trips/${tripId}`, {
+      const response = await axios.get(`/trips/${tripId}`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       setSelectedTrip(response.data)

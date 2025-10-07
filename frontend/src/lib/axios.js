@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-// Get the base URL from environment variables
-const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+// Get the base URL from environment variables and append /api
+const baseURL = (import.meta.env.VITE_API_URL || 'http://localhost:3000') + '/api'
 
 // Log for debugging
 console.log('🔧 Axios Base URL configured as:', baseURL)

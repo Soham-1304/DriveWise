@@ -83,7 +83,7 @@ export default function LiveTrackingPage() {
       const token = await user.getIdToken()
       
       // Fetch all running trips
-      const response = await axios.get('/api/trips/active', {
+      const response = await axios.get('/trips/active', {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       
@@ -109,19 +109,19 @@ export default function LiveTrackingPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
       </div>
     )
   }
 
   if (error) {
     return (
-      <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-auto">
-        <AlertCircle className="w-8 h-8 text-red-600 mx-auto mb-3" />
-        <p className="text-center text-red-700 mb-4">{error}</p>
+      <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-6 max-w-md mx-auto">
+        <AlertCircle className="w-8 h-8 text-red-400 mx-auto mb-3" />
+        <p className="text-center text-red-300 mb-4">{error}</p>
         <button
           onClick={fetchActiveTrips}
-          className="mx-auto block px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+          className="mx-auto block px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
         >
           Retry
         </button>
@@ -139,11 +139,11 @@ export default function LiveTrackingPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">🚗 Live Fleet Tracking</h1>
-          <p className="text-gray-600 mt-1">Real-time monitoring of all active trips</p>
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 bg-clip-text text-transparent">🚗 Live Fleet Tracking</h1>
+          <p className="text-gray-400 mt-1">Real-time monitoring of all active trips</p>
         </div>
         <div className="flex items-center gap-3">
-          <div className="bg-green-100 text-green-700 px-4 py-2 rounded-lg font-semibold">
+          <div className="bg-green-500/20 border border-green-500/30 text-green-400 px-4 py-2 rounded-lg font-semibold">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
               {activeTrips.length} Active {activeTrips.length === 1 ? 'Trip' : 'Trips'}
@@ -151,7 +151,7 @@ export default function LiveTrackingPage() {
           </div>
           <button 
             onClick={fetchActiveTrips}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+            className="px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition shadow-lg shadow-orange-500/30"
           >
             Refresh
           </button>
@@ -162,12 +162,12 @@ export default function LiveTrackingPage() {
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Active Trips List */}
         <div className="lg:col-span-1 space-y-3">
-          <h3 className="text-lg font-bold text-gray-900">Active Trips</h3>
+          <h3 className="text-lg font-bold text-orange-400">Active Trips</h3>
           
           {activeTrips.length === 0 ? (
-            <div className="bg-white rounded-xl border border-gray-200 p-8 text-center">
-              <Car className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-              <p className="text-gray-600 mb-2">No active trips</p>
+            <div className="bg-dark-800/50 backdrop-blur-xl rounded-xl border border-dark-700/50 p-8 text-center">
+              <Car className="w-12 h-12 text-gray-500 mx-auto mb-3" />
+              <p className="text-gray-400 mb-2">No active trips</p>
               <p className="text-sm text-gray-500">All vehicles are idle</p>
             </div>
           ) : (
@@ -176,21 +176,21 @@ export default function LiveTrackingPage() {
                 <div
                   key={trip._id}
                   onClick={() => setSelectedTrip(trip._id === selectedTrip?._id ? null : trip)}
-                  className={`bg-white rounded-xl border-2 p-4 cursor-pointer transition hover:shadow-lg ${
+                  className={`bg-dark-800/50 backdrop-blur-xl rounded-xl border-2 p-4 cursor-pointer transition hover:shadow-lg ${
                     selectedTrip?._id === trip._id 
-                      ? 'border-blue-500 shadow-lg' 
-                      : 'border-gray-200'
+                      ? 'border-orange-500 shadow-lg shadow-orange-500/20' 
+                      : 'border-dark-700/50 hover:border-orange-500/30'
                   }`}
                 >
                   {/* Trip Header */}
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
-                      <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <Car className="w-5 h-5 text-blue-600" />
+                      <div className="w-10 h-10 bg-gradient-to-br from-orange-500/20 to-orange-600/20 border border-orange-500/30 rounded-lg flex items-center justify-center">
+                        <Car className="w-5 h-5 text-orange-400" />
                       </div>
                       <div>
-                        <p className="font-bold text-gray-900">{trip.vehicleName || 'Vehicle'}</p>
-                        <p className="text-xs text-gray-500">{trip.driverName || 'Unknown Driver'}</p>
+                        <p className="font-bold text-white">{trip.vehicleName || 'Vehicle'}</p>
+                        <p className="text-xs text-gray-400">{trip.driverName || 'Unknown Driver'}</p>
                       </div>
                     </div>
                     <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
@@ -198,26 +198,26 @@ export default function LiveTrackingPage() {
 
                   {/* Trip Stats */}
                   <div className="grid grid-cols-2 gap-3 mb-3">
-                    <div className="bg-gray-50 rounded-lg p-2">
-                      <div className="flex items-center gap-1 text-xs text-gray-600 mb-1">
+                    <div className="bg-dark-700/30 rounded-lg p-2">
+                      <div className="flex items-center gap-1 text-xs text-gray-400 mb-1">
                         <Clock className="w-3 h-3" />
                         <span>Duration</span>
                       </div>
-                      <p className="text-sm font-bold text-gray-900">{getTripDuration(trip.startTime)}</p>
+                      <p className="text-sm font-bold text-white">{getTripDuration(trip.startTime)}</p>
                     </div>
-                    <div className="bg-gray-50 rounded-lg p-2">
-                      <div className="flex items-center gap-1 text-xs text-gray-600 mb-1">
+                    <div className="bg-dark-700/30 rounded-lg p-2">
+                      <div className="flex items-center gap-1 text-xs text-gray-400 mb-1">
                         <Navigation className="w-3 h-3" />
                         <span>Distance</span>
                       </div>
-                      <p className="text-sm font-bold text-gray-900">
+                      <p className="text-sm font-bold text-white">
                         {trip.currentDistance?.toFixed(1) || '0.0'} km
                       </p>
                     </div>
                   </div>
 
                   {/* Route Info */}
-                  <div className="text-xs text-gray-600">
+                  <div className="text-xs text-gray-400">
                     <p className="truncate">Route: {trip.routeId || 'Unknown'}</p>
                   </div>
                 </div>
@@ -228,9 +228,9 @@ export default function LiveTrackingPage() {
 
         {/* Map View */}
         <div className="lg:col-span-2">
-          <div className="bg-white rounded-xl border border-gray-200 p-4">
-            <h3 className="text-lg font-bold text-gray-900 mb-4">Live Map</h3>
-            <div className="rounded-xl overflow-hidden border-2 border-gray-300" style={{ height: '600px' }}>
+          <div className="bg-dark-800/50 backdrop-blur-xl rounded-xl border border-dark-700/50 p-4">
+            <h3 className="text-lg font-bold text-orange-400 mb-4">Live Map</h3>
+            <div className="rounded-xl overflow-hidden border-2 border-orange-500/30" style={{ height: '600px' }}>
               <MapContainer
                 center={mapCenter}
                 zoom={selectedTrip ? 13 : 5}
@@ -321,31 +321,31 @@ export default function LiveTrackingPage() {
 
             {/* Selected Trip Details */}
             {selectedTrip && (
-              <div className="mt-4 bg-blue-50 border border-blue-200 rounded-xl p-4">
-                <h4 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
-                  <MapPin className="w-5 h-5 text-blue-600" />
+              <div className="mt-4 bg-orange-500/10 border border-orange-500/30 backdrop-blur-xl rounded-xl p-4">
+                <h4 className="font-bold text-white mb-3 flex items-center gap-2">
+                  <MapPin className="w-5 h-5 text-orange-400" />
                   Trip Details: {selectedTrip.vehicleName || 'Vehicle'}
                 </h4>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div>
-                    <p className="text-xs text-gray-600">Driver</p>
-                    <p className="font-semibold text-gray-900">{selectedTrip.driverName || 'Unknown'}</p>
+                    <p className="text-xs text-gray-400">Driver</p>
+                    <p className="font-semibold text-white">{selectedTrip.driverName || 'Unknown'}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-gray-600">Current Speed</p>
-                    <p className="font-semibold text-gray-900">{selectedTrip.currentSpeed?.toFixed(0) || '0'} km/h</p>
+                    <p className="text-xs text-gray-400">Current Speed</p>
+                    <p className="font-semibold text-white">{selectedTrip.currentSpeed?.toFixed(0) || '0'} km/h</p>
                   </div>
                   <div>
-                    <p className="text-xs text-gray-600">Fuel Used</p>
-                    <p className="font-semibold text-orange-600">
+                    <p className="text-xs text-gray-400">Fuel Used</p>
+                    <p className="font-semibold text-orange-400">
                       {selectedTrip.currentFuelUsed?.toFixed(2) || '0.00'} L
                     </p>
                   </div>
                   <div>
-                    <p className="text-xs text-gray-600">Efficiency</p>
+                    <p className="text-xs text-gray-400">Efficiency</p>
                     <p className={`font-semibold ${
-                      (selectedTrip.currentEfficiency || 100) >= 80 ? 'text-green-600' :
-                      (selectedTrip.currentEfficiency || 100) >= 60 ? 'text-yellow-600' : 'text-red-600'
+                      (selectedTrip.currentEfficiency || 100) >= 80 ? 'text-green-400' :
+                      (selectedTrip.currentEfficiency || 100) >= 60 ? 'text-yellow-400' : 'text-red-400'
                     }`}>
                       {selectedTrip.currentEfficiency?.toFixed(0) || '100'}/100
                     </p>
